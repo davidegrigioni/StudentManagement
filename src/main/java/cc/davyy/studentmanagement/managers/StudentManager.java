@@ -16,27 +16,13 @@ public class StudentManager {
     private final List<Student> students = new ArrayList<>();
     private final Scanner scanner = new Scanner(System.in);
 
-    public void addStudent() {
-        System.out.print("Enter student ID: ");
-        int id = scanner.nextInt();
-
-        if (findStudentById(id).isPresent()) {
-            System.out.println("Error: A student with this ID already exists.");
-            return;
+    public void addStudent(Student student) {
+        if (students.stream().noneMatch(s -> s.id() == student.id())) {
+            students.add(student);
+            System.out.println("Student added successfully.");
+        } else {
+            System.out.println("Student with ID " + student.id() + " already exists.");
         }
-
-        scanner.nextLine();
-
-        System.out.print("Enter student name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Enter student age: ");
-        int age = scanner.nextInt();
-
-        Student student = new Student(id, name, age);
-        students.add(student);
-
-        System.out.println("Student added successfully!");
     }
 
     public void viewStudent() {
@@ -49,25 +35,17 @@ public class StudentManager {
         students.forEach(System.out::println);
     }
 
-    public void deleteStudent() {
-        System.out.print("Enter student ID to delete: ");
-        int id = scanner.nextInt();
-
-        Student studentToRemove = null;
-        for (Student student : students) {
-            if (student.id() == id) {
-                studentToRemove = student;
-                break;
-            }
-        }
-
-        if (studentToRemove != null) {
-            students.remove(studentToRemove);
-            System.out.println("Student deleted successfully!");
+    public void deleteStudent(int id) {
+        Optional<Student> student = findStudentById(id);
+        if (student.isPresent()) {
+            students.remove(student.get());
+            System.out.println("Student with ID " + id + " deleted successfully.");
         } else {
-            System.out.println("Student not found.");
+            System.out.println("Student with ID " + id + " not found.");
         }
     }
+
+    public List<Student> getAllStudents() { return new ArrayList<>(students); }
 
     private Optional<Student> findStudentById(int id) {
         return students

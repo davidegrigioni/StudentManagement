@@ -1,5 +1,10 @@
 package cc.davyy.studentmanagement.model;
 
+/**
+ * @param id
+ * @param name
+ * @param age
+ */
 public record Student(int id, String name, int age) {
 
     @Override
