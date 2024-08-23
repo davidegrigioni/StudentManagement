@@ -87,9 +87,9 @@ public class StudentGUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             StringBuilder studentList = new StringBuilder();
-            for (Student student : studentManager.getAllStudents()) {
-                studentList.append(student.toString()).append("\n");
-            }
+
+            studentManager.getAllStudents().forEach(student -> studentList.append(student.toString()).append("\n"));
+
             displayArea.setText(studentList.toString());
         }
     }
