@@ -16,6 +16,11 @@ public class StudentManager {
     private final List<Student> students = new ArrayList<>();
 
     public void addStudent(Student student) {
+        if (!isValidName(student.name())) {
+            System.out.println("Invalid name: " + student.name() + ". Names cannot contain numbers or special characters.");
+            return;
+        }
+
         if (students.stream()
                 .anyMatch(s -> s.id() == student.id())) {
             System.out.println("Student with ID " + student.id() + " already exists.");
@@ -24,6 +29,7 @@ public class StudentManager {
 
         String capitalized = WordUtils.capitalize(student.name());
         Student capitalizeStudent = new Student(student.id(), capitalized, student.age());
+
         students.add(capitalizeStudent);
         System.out.println("Student added successfully.");
     }
@@ -47,5 +53,7 @@ public class StudentManager {
                 .filter(student -> student.id() == id)
                 .findFirst();
     }
+
+    private boolean isValidName(String name) { return name != null && name.matches("[a-zA-Z\\s]+"); }
 
 }
