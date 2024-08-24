@@ -8,8 +8,7 @@
 The **Student Management System** is a simple, yet powerful desktop application built with Java and Swing for managing student records. 
 The application provides a user-friendly GUI to add, view, delete, and export student information. 
 
-![Screenshot](app.png)  
-*(TODO: Add a screenshot of application here)*
+![Screenshot](app.png)
 
 ## Features
 
